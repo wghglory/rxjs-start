@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <button>Click me</button>
+</body>
+<script src="https://unpkg.com/@reactivex/rxjs@5.0.0-beta.12/dist/global/Rx.js"></script>
+<script>
+  const button = document.querySelector('button');
+  // button.addEventListener('click', e => console.log(e));
+
+  Rx.Observable.fromEvent(button, 'click')
+    .throttleTime(1000)
+    .map(data => (data.clientX))
+    .subscribe(coordinate => console.log(coordinate));
+</script>
+</html>
