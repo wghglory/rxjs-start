@@ -67,3 +67,16 @@ Rx.Observable.interval(1000)    // generate 0, 1, 2 ... every 1s
     }
   });
 ```
+
+## Operators: map, filter, throttleTime
+
+```javascript
+Rx.Observable.interval(1000)    // generate 0, 1, 2 ... every 1s
+  .filter((v) => v % 2 === 0)   // filter out even numbers
+  .throttleTime(1500)           // throttle
+  .subscribe({
+    next: function(val) {
+      console.log(val);
+    }
+  });
+```
