@@ -1,6 +1,6 @@
-# Observable operators: fromEvent, create, interval
+# Observable
 
-## Observable creation
+## Observable creation: fromEvent, create, interval
 
 ### fromEvent
 
@@ -79,4 +79,39 @@ Rx.Observable.interval(1000)    // generate 0, 1, 2 ... every 1s
       console.log(val);
     }
   });
+```
+
+### debounceTime, distinctUntilChanged
+
+```javascript
+const input = document.querySelector('input');
+
+Rx.Observable.fromEvent(input, 'input')
+  .map(event => event.target.value)
+  .debounceTime(500)        // 500ms no input, emit value
+  .distinctUntilChanged()   // usually used with `Map` so it's easier to know whether new value is different from old one. When new and old are the same, no execution of subscribe method
+  .subscribe({
+    next(res) {
+      console.log(res);
+    }
+  });
+  // .subscribe(res => console.log(res));
+```
+
+### scan, reduce
+
+```javascript
+Rx.Observable.of(1, 2, 3, 4, 5)
+  .scan((accu, curr) => {
+    return accu + curr;
+  }, 0)
+  // .reduce((accu, curr) => {
+  //   return accu + curr;
+  // }, 0)
+  .subscribe(val => {
+    console.log(val);
+  })
+
+  // scan result: 1 3 6 10 15
+  // reduce result: 15, final result
 ```

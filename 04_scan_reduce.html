@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>RxJS scan, reduce</title>
+</head>
+<body>
+</body>
+<script src="https://unpkg.com/@reactivex/rxjs@5.0.0-beta.12/dist/global/Rx.js"></script>
+<script>
+  Rx.Observable.of(1, 2, 3, 4, 5)
+    .scan((accu, curr) => {
+      return accu + curr;
+    }, 0)
+    // .reduce((accu, curr) => {
+    //   return accu + curr;
+    // }, 0)
+    .subscribe(val => {
+      console.log(val);
+    })
+
+    // scan result: 1 3 6 10 15
+    // reduce result: 15
+</script>
+</html>
