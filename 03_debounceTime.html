@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>RxJS debounceTime, distinctUntilChanged</title>
+</head>
+<body>
+  <input type="text">
+</body>
+<script src="https://unpkg.com/@reactivex/rxjs@5.0.0-beta.12/dist/global/Rx.js"></script>
+<script>
+  const input = document.querySelector('input');
+
+  Rx.Observable.fromEvent(input, 'input')
+    .map(event => event.target.value)
+    .debounceTime(500)        // 500ms no input, emit value
+    .distinctUntilChanged()   // usually used with `Map` so it's easier to know whether new value is different from old one. When new and old are the same, no execution of subscribe method
+    .subscribe({
+      next(res) {
+        console.log(res);
+      }
+    });
+    // .subscribe(res => console.log(res));
+</script>
+</html>
