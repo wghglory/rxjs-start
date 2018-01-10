@@ -87,9 +87,10 @@ Rx.Observable.interval(1000)    // generate 0, 1, 2 ... every 1s
 const input = document.querySelector('input');
 
 Rx.Observable.fromEvent(input, 'input')
-  .map(event => event.target.value)
+  // .map(event => event.target.value)
+  .pluck('target', 'value') // extract properties from object. Shorter than map
   .debounceTime(500)        // 500ms no input, emit value
-  .distinctUntilChanged()   // usually used with `Map` so it's easier to know whether new value is different from old one. When new and old are the same, no execution of subscribe method
+  .distinctUntilChanged()   // usually used with `Map` or 'pluck' so it's easier to know whether new value is different from old one. When new and old are the same, no execution of subscribe method
   .subscribe({
     next(res) {
       console.log(res);
