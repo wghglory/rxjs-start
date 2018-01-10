@@ -7,59 +7,13 @@
   <title>RxJS introduction</title>
 </head>
 <body>
-  <button>Click me</button>
+  <h1>RxJS introduction </h1>
+  <p>https://www.youtube.com/watch?v=T9wOu11uU6U&list=PL55RiY5tL51pHpagYcrN9ubNLVXF8rGVi</p>
+  <h3>TOC</h3>
+  <ul>
+    <li><a href="01_observable.html" target="_blank">01 observable</a></li>
+    <li><a href="02_subject.html" target="_blank">02 Subject</a></li>
+  </ul>
 </body>
-<script src="https://unpkg.com/@reactivex/rxjs@5.0.0-beta.12/dist/global/Rx.js"></script>
-<script>
-  const button = document.querySelector('button');
-  // button.addEventListener('click', e => console.log(e));
 
-  const observer = {
-    next: function(val) {
-      console.log(val);
-    },
-    error: function(err) {
-      console.error(err);
-    },
-    complete: function() {
-      console.info('completed');
-    }
-  };
-
-/*   Rx.Observable.fromEvent(button, 'click')
-    .throttleTime(1000)
-    .map(data => (data.clientX))
-    .subscribe(coordinate => console.log(coordinate)); */
-
-/*     const sub = Rx.Observable
-      .create((obs) => {
-        obs.next('a value');
-        // obs.error('error occurs');
-        obs.complete();
-        obs.next('never called since error or complete makes subscription of observable is completed.');
-      })
-      .subscribe(observer); */
-
-      const sub = Rx.Observable
-        .create(function(obs) {
-          button.onclick = function(e){
-            obs.next(e);
-          }
-        })
-        .subscribe(observer);
-
-      setTimeout(function(){
-        sub.unsubscribe();
-      }, 3000)
-
-
-      Rx.Observable.interval(1000)
-        .map((v) => 'num: ' + v * 2)
-        .throttleTime(1500)
-        .subscribe({
-          next: function(val) {
-            console.log(val);
-          }
-        });
-</script>
 </html>

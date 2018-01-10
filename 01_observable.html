@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>RxJS Observable</title>
+</head>
+<body>
+  <button>Click me</button>
+</body>
+<script src="https://unpkg.com/@reactivex/rxjs@5.0.0-beta.12/dist/global/Rx.js"></script>
+<script>
+  const button = document.querySelector('button');
+  // button.addEventListener('click', e => console.log(e));
+
+  Rx.Observable.fromEvent(button, 'click')
+    .throttleTime(1000)
+    .map(data => (data.clientX))
+    .subscribe(coordinate => console.log(coordinate));
+
+  // ------------- create --------------
+  const observer = {
+    next: function(val) {
+      console.log(val);
+    },
+    error: function(err) {
+      console.error(err);
+    },
+    complete: function() {
+      console.info('completed');
+    }
+  };
+
+  Rx.Observable
+    .create((obs) => {
+      obs.next('a value');
+      // obs.error('error occurs');
+      obs.complete();
+      obs.next('never called since error or complete makes subscription of observable is completed.');
+    })
+    .subscribe(observer);
+
+  // ---------------- unsubscribe -----------------
+  const sub = Rx.Observable
+    .create(function(obs) {
+      button.onclick = function(e){
+        obs.next(e);
+      }
+    })
+    .subscribe(observer);
+
+  setTimeout(function(){
+    sub.unsubscribe();
+  }, 3000)
+
+  // ---------------- interval -------------------
+  Rx.Observable.interval(1000)
+    .map((v) => 'num: ' + v * 2)
+    .throttleTime(1500)
+    .subscribe({
+      next: function(val) {
+        console.log(val);
+      }
+    });
+</script>
+</html>

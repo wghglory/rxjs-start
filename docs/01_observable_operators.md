@@ -1,6 +1,8 @@
 # Observable operators: fromEvent, create, interval
 
-## fromEvent
+## Observable creation
+
+### fromEvent
 
 ```javascript
 const button = document.querySelector('button');
@@ -12,7 +14,7 @@ Rx.Observable.fromEvent(button, 'click')
     .subscribe(coordinate => console.log(coordinate));
 ```
 
-## create
+### create
 
 ```javascript
 const observer = {
@@ -53,7 +55,7 @@ setTimeout(function(){
 }, 3000);
 ```
 
-## interval
+### interval
 
 ```javascript
 Rx.Observable.interval(1000)    // generate 0, 1, 2 ... every 1s
