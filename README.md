@@ -2,4 +2,4 @@
 
 TOC
 
-* [Observable fromEvent and create](./docs/01_fromEvent_create.md)
+* [Observable fromEvent, create, interval and operators: throttleTime, map](./docs/01_observable_operators.md)

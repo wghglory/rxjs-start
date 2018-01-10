@@ -51,5 +51,15 @@
       setTimeout(function(){
         sub.unsubscribe();
       }, 3000)
+
+
+      Rx.Observable.interval(1000)
+        .map((v) => 'num: ' + v * 2)
+        .throttleTime(1500)
+        .subscribe({
+          next: function(val) {
+            console.log(val);
+          }
+        });
 </script>
 </html>

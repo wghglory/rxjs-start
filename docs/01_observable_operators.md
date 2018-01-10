@@ -1,4 +1,4 @@
-# Observable fromEvent, create
+# Observable operators: fromEvent, create, interval
 
 ## fromEvent
 
@@ -51,4 +51,17 @@ const sub = Rx.Observable
 setTimeout(function(){
   sub.unsubscribe();
 }, 3000);
+```
+
+## interval
+
+```javascript
+Rx.Observable.interval(1000)    // generate 0, 1, 2 ... every 1s
+  .map((v) => 'num: ' + v * 2)  // transform and return observable
+  .throttleTime(1500)           // throttle
+  .subscribe({
+    next: function(val) {
+      console.log(val);
+    }
+  });
 ```
