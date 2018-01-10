@@ -145,3 +145,17 @@ combine 2 observables into one.
   .subscribe(res => span.textContent = res);
 </script>
 ```
+
+### switchMap
+
+```javascript
+const button = document.querySelector('button');
+
+const obs1 = Rx.Observable.fromEvent(button, 'click');
+const obs2 = Rx.Observable.interval(1000);
+
+// trigger some value emissions whenever another Observable emits a value
+// when button clicks, obs2 will be subscribed
+obs1.switchMap(event => obs2)
+  .subscribe(val => console.log(val));
+```
