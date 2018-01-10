@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>RxJS mergeMap</title>
+</head>
+<body>
+  <input type="text">
+  <input type="text">
+  <p>combined value: <span></span></p>
+</body>
+<script src="https://unpkg.com/@reactivex/rxjs@5.0.0-beta.12/dist/global/Rx.js"></script>
+<script>
+  const inputs = document.querySelectorAll('input');
+  const input1 = inputs[0];
+  const input2 = inputs[1];
+
+  const span = document.querySelector('span');
+
+  const obs1 = Rx.Observable.fromEvent(input1, 'input');
+  const obs2 = Rx.Observable.fromEvent(input2, 'input');
+
+  // when the second input has any value, the combined value will be filled into span.
+  obs1.mergeMap(event1 => {
+    return obs2.map(event2 => event1.target.value + ' ' + event2.target.value);
+  })
+  .subscribe(res => span.textContent = res);
+</script>
+</html>

@@ -116,3 +116,32 @@ Rx.Observable.of(1, 2, 3, 4, 5)
   // scan result: 1 3 6 10 15
   // reduce result: 15, final result
 ```
+
+### mergeMap
+
+combine 2 observables into one.
+
+```html
+<body>
+  <input type="text">
+  <input type="text">
+  <p>combined value: <span></span></p>
+</body>
+<script src="https://unpkg.com/@reactivex/rxjs@5.0.0-beta.12/dist/global/Rx.js"></script>
+<script>
+  const inputs = document.querySelectorAll('input');
+  const input1 = inputs[0];
+  const input2 = inputs[1];
+
+  const span = document.querySelector('span');
+
+  const obs1 = Rx.Observable.fromEvent(input1, 'input');
+  const obs2 = Rx.Observable.fromEvent(input2, 'input');
+
+  // when the second input has any value, the combined value will be filled into span.
+  obs1.mergeMap(event1 => {
+    return obs2.map(event2 => event1.target.value + ' ' + event2.target.value);
+  })
+  .subscribe(res => span.textContent = res);
+</script>
+```
